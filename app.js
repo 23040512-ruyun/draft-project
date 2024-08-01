@@ -19,10 +19,10 @@ const upload = multer({ storage: storage });
 
 // Configure MySQL connection
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'c237_project',
+    host: 'mysql-ruyun.alwaysdata.net',
+    user: 'ruyun',
+    password: 'XiaoBaiChaojibai@05',
+    database: 'ruyun_project',
 });
 
 connection.connect((err) => {
