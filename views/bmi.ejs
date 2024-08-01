@@ -1,0 +1,98 @@
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .bmi-calculator {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .bmi-result {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Goal Setting</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addGoal">Add New Goal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/bmi">BMI Calculator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <h2 class="text-center mb-4">BMI Calculator</h2>
+        <div class="bmi-calculator">
+            <form id="bmiForm">
+                <div class="mb-3">
+                    <label for="weight" class="form-label">Weight (kg):</label>
+                    <input type="number" class="form-control" id="weight" required>
+                </div>
+                <div class="mb-3">
+                    <label for="height" class="form-label">Height (cm):</label>
+                    <input type="number" class="form-control" id="height" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Calculate BMI</button>
+            </form>
+            <div id="bmiResult" class="bmi-result mt-3"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('bmiForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100; // Convert cm to meters
+
+            if (weight && height) {
+                const bmi = weight / (height * height);
+                let bmiCategory = '';
+
+                if (bmi < 18.5) {
+                    bmiCategory = 'Underweight';
+                } else if (bmi >= 18.5 && bmi < 24.9) {
+                    bmiCategory = 'Normal weight';
+                } else if (bmi >= 25 && bmi < 29.9) {
+                    bmiCategory = 'Overweight';
+                } else {
+                    bmiCategory = 'Obesity';
+                }
+
+                document.getElementById('bmiResult').innerHTML = `
+                    <h4>Your BMI is ${bmi.toFixed(2)}</h4>
+                    <p><strong>Category:</strong> ${bmiCategory}</p>
+                `;
+            } else {
+                document.getElementById('bmiResult').innerHTML = '<p class="text-danger">Please enter valid weight and height.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
